@@ -1,0 +1,20 @@
+[phases.setup]
+nixPkgs = ["go", "nmap", "python311"]
+
+[phases.install]
+cmds = [
+  "pip install python-telegram-bot==20.7 aiohttp requests wafw00f --break-system-packages",
+  "go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest",
+  "go install github.com/projectdiscovery/httpx/cmd/httpx@latest",
+  "go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest",
+  "cp /root/go/bin/nuclei /usr/local/bin/nuclei",
+  "cp /root/go/bin/httpx /usr/local/bin/httpx",
+  "cp /root/go/bin/subfinder /usr/local/bin/subfinder",
+  "nuclei -update-templates -silent"
+]
+
+[phases.build]
+cmds = []
+
+[start]
+cmd = "python3 vuln_hunter_bot_v3.py"
